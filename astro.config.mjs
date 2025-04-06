@@ -21,8 +21,8 @@ import { remarkReadingTime } from "./src/plugins/remark-reading-time.mjs";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://fuwari.vercel.app/",
-  base: "/",
+  site: 'https://lbl-bm.github.io',
+  base: '/bm-books', // 如果您的仓库名是 bm-books
   trailingSlash: "always",
   integrations: [
     tailwind(
