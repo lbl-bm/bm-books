@@ -18,17 +18,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 检出代码
-        uses: actions/checkout@v3
-      - name: 设置 Node.js 环境
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-          cache: 'pnpm'
+        uses: actions/checkout@v4
       - name: 安装 pnpm
         uses: pnpm/action-setup@v2
         with:
           version: 8
-          run_install: false
+      - name: 设置 Node.js 环境
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'pnpm'
       - name: 安装依赖
         run: |
           pnpm install
@@ -36,9 +35,10 @@ jobs:
       - name: 构建
         run: pnpm build
       - name: 设置 Pages
-        uses: actions/configure-pages@v3
+        id: pages
+        uses: actions/configure-pages@v4
       - name: 上传构建产物
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
 
@@ -51,4 +51,4 @@ jobs:
     steps:
       - name: 部署到 GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v4
