@@ -1,20 +1,20 @@
 ---
-title: Markdown Extended Features
-published: 2024-05-01
+title: Markdown 扩展功能
+published: 2025-04-06
 updated: 2024-11-29
-description: 'Read more about Markdown features in Fuwari'
+description: '了解更多关于 Fuwari 中的 Markdown 功能'
 image: ''
-tags: [Demo, Example, Markdown, Fuwari]
-category: 'Examples'
+tags: [演示, 示例]
+category: 示例
 draft: false 
 ---
 
-## GitHub Repository Cards
-You can add dynamic cards that link to GitHub repositories, on page load, the repository information is pulled from the GitHub API. 
+## GitHub 仓库卡片
+您可以添加动态卡片链接到 GitHub 仓库，在页面加载时，仓库信息会从 GitHub API 获取。
 
 ::github{repo="Fabrizz/MMM-OnSpotify"}
 
-Create a GitHub repository card with the code `::github{repo="<owner>/<repo>"}`.
+使用代码 `::github{repo="<所有者>/<仓库>"}` 创建 GitHub 仓库卡片。
 
 ```markdown
 ::github{repo="saicaca/fuwari"}
