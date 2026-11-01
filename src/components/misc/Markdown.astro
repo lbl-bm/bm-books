@@ -15,7 +15,6 @@ const className = Astro.props.class
 
 <script>
   const observer = new MutationObserver(addPreCopyButton);
-  observer.observe(document.body, { childList: true, subtree: true });
   
   function addPreCopyButton() {
     observer.disconnect();
@@ -29,7 +28,9 @@ const className = Astro.props.class
       wrapper.className = "relative code-block";
 
       let copyButton = document.createElement("button");
-      copyButton.className = "copy-btn btn-regular-dark absolute active:scale-90 h-8 w-8 top-2 right-2 opacity-75 text-sm p-1.5 rounded-lg transition-all ease-in-out";
+      copyButton.type = 'button';
+      copyButton.setAttribute('aria-label', '复制代码');
+      copyButton.className = "copy-btn btn-regular-dark absolute active:scale-90 h-11 w-11 top-2 right-2 opacity-75 text-sm p-2 rounded-lg transition-all ease-in-out";
 
       codeBlock.setAttribute("tabindex", "0");
       if (codeBlock.parentNode) {
@@ -43,6 +44,10 @@ const className = Astro.props.class
 
       wrapper.appendChild(codeBlock);
       wrapper.appendChild(copyButton);
+      const status = document.createElement('span');
+      status.className = 'sr-only';
+      status.setAttribute('role', 'status');
+      wrapper.appendChild(status);
 
       let timeout: ReturnType<typeof setTimeout>;
       copyButton.addEventListener("click", async () => {
@@ -51,14 +56,24 @@ const className = Astro.props.class
         }
         let text = codeBlock?.querySelector("code")?.innerText;
         if (text === undefined) return;
-        await navigator.clipboard.writeText(text);
+        try {
+          await navigator.clipboard.writeText(text);
+        } catch {
+          status.textContent = '复制失败，请选中代码手动复制。';
+          return;
+        }
+        status.textContent = '代码已复制';
+        copyButton.setAttribute('aria-label', '代码已复制');
         copyButton.classList.add("success");
         timeout = setTimeout(() => {
           copyButton.classList.remove("success");
+          copyButton.setAttribute('aria-label', '复制代码');
+          status.textContent = '';
         }, 1000);
       });
     }
     
     observer.observe(document.body, { childList: true, subtree: true });
   }
+  addPreCopyButton();
 </script>

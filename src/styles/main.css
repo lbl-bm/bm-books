@@ -24,7 +24,7 @@
         @apply top-[5.25rem] rounded-[var(--radius-large)] overflow-hidden bg-[var(--float-panel-bg)] transition shadow-xl dark:shadow-none
     }
     .float-panel-closed {
-        @apply -translate-y-1 opacity-0 pointer-events-none
+        @apply invisible -translate-y-1 opacity-0 pointer-events-none
     }
     .search-panel mark {
         @apply bg-transparent text-[var(--primary)]
@@ -131,6 +131,22 @@
 .custom-md img, #post-cover img {
     @apply cursor-zoom-in
 }
+
+a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 3px;
+}
+
+.skip-link {
+    position: fixed;
+    top: -5rem;
+    left: 1rem;
+    z-index: 100;
+    padding: .75rem 1rem;
+    background: var(--card-bg);
+    color: var(--primary);
+}
+.skip-link:focus { top: 1rem; }
 
 ::selection {
     background-color: var(--selection-bg)

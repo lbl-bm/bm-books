@@ -7,7 +7,7 @@ import I18nKey from '@i18n/i18nKey'
 
 export async function getStaticPaths() {
   const categories = await getCategoryList()
-  return categories.map(category => {
+  return categories.filter(category => category.name !== i18n(I18nKey.uncategorized)).map(category => {
     return {
       params: {
         category: category.name,
@@ -19,6 +19,6 @@ export async function getStaticPaths() {
 const category = Astro.params.category as string
 ---
 
-<MainGridLayout title={i18n(I18nKey.archive)} description={i18n(I18nKey.archive)}>
+<MainGridLayout title={`分类：${category}`} description={`“${category}”分类中的公开文章`}>
     <ArchivePanel categories={[category]}></ArchivePanel>
 </MainGridLayout>

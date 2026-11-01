@@ -10,6 +10,7 @@ import {
   setTheme,
 } from '@utils/setting-utils.ts'
 import { onMount } from 'svelte'
+import { setPanelOpen } from '@utils/panel-utils'
 
 const seq: LIGHT_DARK_MODE[] = [LIGHT_MODE, DARK_MODE, AUTO_MODE]
 let mode: LIGHT_DARK_MODE = $state(AUTO_MODE)
@@ -47,19 +48,19 @@ function toggleScheme() {
 }
 
 function showPanel() {
-  const panel = document.querySelector('#light-dark-panel')
-  panel.classList.remove('float-panel-closed')
+  setPanelOpen('light-dark-panel', true)
 }
 
 function hidePanel() {
   const panel = document.querySelector('#light-dark-panel')
-  panel.classList.add('float-panel-closed')
+  if (panel?.contains(document.activeElement)) return
+  setPanelOpen('light-dark-panel', false)
 }
 </script>
 
 <!-- z-50 make the panel higher than other float panels -->
-<div class="relative z-50" role="menu" tabindex="-1" onmouseleave={hidePanel}>
-    <button aria-label="Light/Dark Mode" role="menuitem" class="relative btn-plain scale-animation rounded-lg h-11 w-11 active:scale-90" id="scheme-switch" onclick={toggleScheme} onmouseenter={showPanel}>
+<div class="relative z-50" onmouseleave={hidePanel}>
+    <button type="button" aria-label="切换明暗模式，方向键下展开选项" aria-controls="light-dark-panel" aria-expanded="false" class="relative btn-plain scale-animation rounded-lg h-11 w-11 active:scale-90" id="scheme-switch" onclick={toggleScheme} onmouseenter={showPanel} onkeydown={(event) => { if (event.key === 'ArrowDown') { event.preventDefault(); setPanelOpen('light-dark-panel', true, { focusFirst: true }) } }}>
         <div class="absolute" class:opacity-0={mode !== LIGHT_MODE}>
             <Icon icon="material-symbols:wb-sunny-outline-rounded" class="text-[1.25rem]"></Icon>
         </div>
@@ -71,7 +72,7 @@ function hidePanel() {
         </div>
     </button>
 
-    <div id="light-dark-panel" class="hidden lg:block absolute transition float-panel-closed top-11 -right-2 pt-5" >
+    <div id="light-dark-panel" data-floating-panel inert aria-hidden="true" class="absolute transition float-panel-closed top-11 -right-2 pt-5" >
         <div class="card-base float-panel p-2">
             <button class="flex transition whitespace-nowrap items-center !justify-start w-full btn-plain scale-animation rounded-lg h-9 px-3 font-medium active:scale-95 mb-0.5"
                     class:current-theme-btn={mode === LIGHT_MODE}

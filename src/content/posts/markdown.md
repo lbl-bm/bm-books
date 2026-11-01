@@ -8,6 +8,8 @@ category: 示例
 draft: false
 ---
 
+> 模板演示：本文来自 Fuwari 的 Markdown 功能示例，保留用于排版和功能预览，不代表个人原创文章。
+
 # An h1 header
 
 Paragraphs are separated by a blank line.
@@ -95,9 +97,8 @@ Now a nested list:
 Notice again how text always lines up on 4-space indents (including
 that last line which continues item 3 above).
 
-Here's a link to [a website](http://foo.bar), to a [local
-doc](local-doc.html), and to a [section heading in the current
-doc](#an-h2-header). Here's a footnote [^1].
+Here's a link to [Astro documentation](https://docs.astro.build/), and to a
+[section heading in the current document](#an-h2-header). Here's a footnote [^1].
 
 [^1]: Footnote text goes here.
 

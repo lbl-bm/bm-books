@@ -22,7 +22,7 @@ import { remarkReadingTime } from "./src/plugins/remark-reading-time.mjs";
 // https://astro.build/config
 export default defineConfig({
   site: 'https://lbl-bm.github.io',
-  base: '/bm-books', // 如果您的仓库名是 bm-books
+  base: '/bm-books',
   trailingSlash: "always",
   integrations: [
     tailwind(
@@ -114,6 +114,7 @@ export default defineConfig({
     ],
   },
   vite: {
+    cacheDir: '.astro/vite',
     build: {
       rollupOptions: {
         onwarn(warning, warn) {

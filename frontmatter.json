@@ -12,8 +12,10 @@
   "frontMatter.taxonomy.contentTypes": [
     {
       "name": "default",
-      "pageBundle": true,
-      "previewPath": "'blog'",
+      "pageBundle": false,
+      "previewPath": "/bm-books/posts",
+      "trailingSlash": true,
+      "slugTemplate": "{{slugifiedFileName}}",
       "filePrefix": null,
       "clearEmpty": true,
       "fields": [
@@ -54,11 +56,12 @@
         {
           "title": "draft",
           "name": "draft",
-          "type": "boolean"
+          "type": "boolean",
+          "default": true
         },
         {
           "title": "language",
-          "name": "language",
+          "name": "lang",
           "type": "string"
         }
       ]

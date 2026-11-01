@@ -10,7 +10,8 @@ interface Props {
   tags?: string[]
   categories?: string[]
 }
-const { keyword, tags, categories } = Astro.props
+const { tags, categories } = Astro.props
+const archiveTitle = tags?.length ? `标签：${tags.join('、')}` : categories?.length ? `分类：${categories.map(category => category === UNCATEGORIZED ? i18n(I18nKey.uncategorized) : category).join('、')}` : '文章归档'
 
 let posts = await getSortedPosts()
 
@@ -66,6 +67,8 @@ function formatTag(tag: string[]) {
 ---
 
 <div class="card-base px-8 py-6">
+    <h1 class="text-2xl font-bold text-90 mb-2">{archiveTitle}</h1>
+    <p class="text-sm text-75 mb-4">{posts.length ? `共 ${posts.length} 篇公开文章` : '这个分类中暂时没有公开文章。'}</p>
     {
         groups.map(group => (
             <div>

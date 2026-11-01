@@ -1,19 +1,20 @@
 import { siteConfig } from '@/config'
 import rss from '@astrojs/rss'
 import { getSortedPosts } from '@utils/content-utils'
+import { getPostUrlBySlug } from '@utils/url-utils'
 import type { APIContext } from 'astro'
 import MarkdownIt from 'markdown-it'
 import sanitizeHtml from 'sanitize-html'
 
 const parser = new MarkdownIt()
 
-export async function GET(context: APIContext) {
+export async function GET(context: APIContext): Promise<Response> {
   const blog = await getSortedPosts()
 
   return rss({
     title: siteConfig.title,
     description: siteConfig.subtitle || 'No description',
-    site: context.site ?? 'https://fuwari.vercel.app',
+    site: context.site!,
     items: blog.map(post => {
       const content =
         typeof post.body === 'string' ? post.body : String(post.body || '')
@@ -22,12 +23,12 @@ export async function GET(context: APIContext) {
         title: post.data.title,
         pubDate: post.data.published,
         description: post.data.description || '',
-        link: `/posts/${post.slug}/`,
+        link: getPostUrlBySlug(post.slug),
         content: sanitizeHtml(parser.render(content), {
           allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img']),
         }),
       }
     }),
-    customData: `<language>${siteConfig.lang}</language>`,
+    customData: `<language>${siteConfig.lang.replace('_', '-')}</language>`,
   })
 }

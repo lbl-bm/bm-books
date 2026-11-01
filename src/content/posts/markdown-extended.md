@@ -1,13 +1,14 @@
 ---
 title: Markdown 扩展功能
 published: 2025-04-06
-updated: 2024-11-29
 description: '了解更多关于 Fuwari 中的 Markdown 功能'
 image: ''
 tags: [演示, 示例]
 category: 示例
 draft: false 
 ---
+
+> 模板演示：本文来自 Fuwari 的 Markdown 功能示例，保留用于排版和功能预览，不代表个人原创文章。
 
 ## GitHub 仓库卡片
 您可以添加动态卡片链接到 GitHub 仓库，在页面加载时，仓库信息会从 GitHub API 获取。

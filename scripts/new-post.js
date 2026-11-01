@@ -21,9 +21,17 @@ Usage: npm run new-post -- <filename>`)
 }
 
 let fileName = args[0]
+if (path.isAbsolute(fileName) || fileName.split(/[\\/]/).includes('..')) {
+  console.error('Error: Use a relative post filename inside src/content/posts.')
+  process.exit(1)
+}
 
 // Add .md extension if not present
-const fileExtensionRegex = /\.(md|mdx)$/i
+const fileExtensionRegex = /\.md$/i
+if (/\.mdx$/i.test(fileName)) {
+  console.error('Error: This blog supports Markdown (.md); MDX is not configured.')
+  process.exit(1)
+}
 if (!fileExtensionRegex.test(fileName)) {
   fileName += ".md"
 }
@@ -43,13 +51,13 @@ if (!fs.existsSync(dirPath)) {
 }
 
 const content = `---
-title: ${args[0]}
+title: ${JSON.stringify(path.basename(fileName, '.md'))}
 published: ${getDate()}
 description: ''
 image: ''
 tags: []
 category: ''
-draft: false 
+draft: true
 lang: ''
 ---
 `

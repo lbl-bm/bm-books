@@ -8,7 +8,7 @@ import { LinkPreset } from './types/config'
 
 export const siteConfig: SiteConfig = {
   title: 'LBL',
-  subtitle: 'books',
+  subtitle: '个人博客',
   lang: 'zh_CN',         // 'en', 'zh_CN', 'zh_TW', 'ja', 'ko', 'es', 'th' 语言选项
   themeColor: {
     hue: 250,         // 主题颜色的默认色调，范围从 0 到 360。例如：红色: 0，青色: 200，蓝绿色: 250，粉色: 345
